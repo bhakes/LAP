@@ -22,6 +22,7 @@ From the appropriate filepath with newsdata.sql in that path, type the following
 $ psql -d news -f newsdata.sql
 ```
 Please try [this link](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) if you do not have access to the newsdata.sql file.
+
 2. Import newsbuild.sql into 'news' database
 Commands can be imported in or be copy-pasted in after logging into 'news' database from the CL.
 ```
