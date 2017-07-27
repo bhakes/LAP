@@ -75,7 +75,7 @@ Programs that use this library are most often run from the command line but can 
 The code has the following known issues:
 1. The only error code that is caught by the log right now is a '404 - NOT FOUND' code.
     - If the site were to experience additional errors (it had not when this code was released), the error rate for certain days would be under estimated.
-2. Some of the code in `newsbuild.sql` is, admittedly, not as efficient as it could be
+2. Some of the code in newsbuild.sql is, admittedly, not as efficient as it could be
     - Later iterations of this code or pull requests could improve the efficiency of various views
 
 ## **License**
