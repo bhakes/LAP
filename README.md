@@ -30,17 +30,16 @@ $ psql news
 >>>
 CREATE VIEW uri_log AS
 -- create view of article log only
-   SELECT split_part(path, '/article/', 2) as article_short, count(id) as visits
+   SELECT path, count(id) as visits
    FROM log
-   WHERE path like '/article/%'
-   GROUP BY article_short
+   GROUP BY path
    ORDER BY visits desc;
 
 CREATE VIEW art_rank AS
 -- create view of article rank by site visits
    SELECT articles.title, uri_log.visits as visits, articles.author as author_id
    FROM uri_log JOIN articles
-   ON articles.slug = uri_log.article_short
+   ON '/article/' || articles.slug = uri_log.path
    ORDER BY uri_log.visits desc;
 
 CREATE VIEW auth_rank AS
@@ -56,8 +55,7 @@ CREATE VIEW log_status_rank AS
    SELECT date(time) as day, count(status) as total, count(status) FILTER (WHERE status = '200 OK') as success, count(status) FILTER (WHERE status = '404 NOT FOUND') as err_code, (count(status) FILTER (WHERE status = '404 NOT FOUND') * 1.000) / (count(status) * 1.000) as percent_errors
    FROM log
    Group BY date(time)
-   ORDER BY (count(status) FILTER (WHERE status = '404 NOT FOUND') * 1.000) / (count(status) * 1.000) desc
-   LIMIT 10;
+   ORDER BY (count(status) FILTER (WHERE status = '404 NOT FOUND') * 1.000) / (count(status) * 1.000) desc;
 ```
 3. Programs using this library should be saved in the same directory as the cloned repo
 
