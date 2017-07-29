@@ -20,19 +20,23 @@ f.write("* Web Traffic Log Analysis *\n\n")
 # Question 1
 f.write("1. What are the most popular three articles of all time?\n\n")
 ans1 = newsdata.artRank()
-f.write("1. {} -- {:,} pageviews\n".format(ans1[0][0], ans1[0][1]))
-f.write("2. {} -- {:,} pageviews\n".format(ans1[1][0], ans1[1][1]))
-f.write("3. {} -- {:,} pageviews\n".format(ans1[2][0], ans1[2][1]))
+for counter, ans in enumerate(ans1):
+    f.write("{}. {} -- {:,} pageviews\n"\
+        .format(counter + 1, ans1[counter][0], ans1[counter][1]))
 
 # Question 2
 f.write("\n\n2. Who are the most popular article authors of all time?\n\n")
 ans2 = newsdata.authRank()
-f.write("1. {} -- {:,} pageviews\n".format(ans2[0][0], ans2[0][1]))
-f.write("2. {} -- {:,} pageviews\n".format(ans2[1][0], ans2[1][1]))
-f.write("3. {} -- {:,} pageviews\n".format(ans2[2][0], ans2[2][1]))
+for counter, ans in enumerate(ans2):
+    f.write("{}. {} -- {:,} pageviews\n"\
+        .format(counter + 1, ans2[counter][0], ans2[counter][1]))
 
 # Question 3
 f.write("\n\n")
 f.write("3. On which days did more than 1%\b of requests lead to errors?\n\n")
 ans3 = newsdata.onePercentErrorDay()
-f.write("{:%m-%d-%Y} -- {:,.2f} percent error rate\n".format(ans3[0], ans3[1] * 100))
+for counter, ans in enumerate(ans3):
+    if ans3[counter][1] < 0.02:
+        break
+    f.write("{}. {:%m-%d-%Y} -- {:,.2f} percent error rate\n"\
+        .format(counter + 1, ans3[counter][0], ans3[counter][1] * 100))
