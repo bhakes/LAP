@@ -32,7 +32,9 @@ def execute_query(query):
 
         conn.close()  # don't leave links to the db open!
         return ans
-
+        
+    except: (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 def artRank():
     """Returns a list of articles, sorted by page views, descending.
