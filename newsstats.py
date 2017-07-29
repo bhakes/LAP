@@ -38,5 +38,5 @@ ans3 = newsdata.onePercentErrorDay()
 for counter, ans in enumerate(ans3):
     if ans3[counter][1] < 0.02:
         break
-    f.write("{}. {:%m-%d-%Y} -- {:,.2f} percent error rate\n"\
+    f.write("{}. {:%B %d, %Y} -- {:,.2f} percent error rate\n"\
         .format(counter + 1, ans3[counter][0], ans3[counter][1] * 100))
