@@ -14,6 +14,7 @@ def connect():
         print ("You could not connect to the news database. Please check\
          check your connection and try again.")
 
+
 def execute_query(query):
     """execute_query takes an SQL query as a parameter.Executes the query\
      and returns the results as a list of tuples.
@@ -35,6 +36,7 @@ def execute_query(query):
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
 
 def artRank():
     """Returns a list of articles, sorted by page views, descending.
@@ -67,6 +69,7 @@ def authRank():
 
     ans = execute_query(query)
     return ans
+
 
 def onePercentErrorDay():
     """Returns a list of days, sorted by the percentage error rates on http
