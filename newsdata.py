@@ -14,6 +14,25 @@ def connect():
         print "You could not connect to the news database. Please check\
          check your connection and try again."
 
+def execute_query(query):
+    """execute_query takes an SQL query as a parameter.Executes the query\
+     and returns the results as a list of tuples.
+       args:
+           query - an SQL query statement to be executed.
+
+       returns:
+           A list of tuples containing the results of the query.
+    """
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        cur.execute(query)
+        ans = cur.fetchall()
+
+        conn.close()  # don't leave links to the db open!
+        return ans
+
 
 def artRank():
     """Returns a list of articles, sorted by page views, descending.
@@ -25,13 +44,9 @@ def artRank():
         title: the full title of the article
         visits: the number of pageviews that article has received
     """
-    conn = connect()
-    cur = conn.cursor()
+    query = "select title, visits from art_rank LIMIT 3;"
 
-    cur.execute("select title, visits from art_rank LIMIT 3;")
-    ans = cur.fetchall()
-
-    conn.close()  # don't leave links to the db open!
+    ans = execute_query(query)
     return ans
 
 
@@ -46,15 +61,10 @@ def authRank():
         visits: the sum of the number of pageviews across all articles for
         that particular author
     """
-    conn = connect()
-    cur = conn.cursor()
+    query = "select * from auth_rank LIMIT 3;"
 
-    cur.execute("select * from auth_rank LIMIT 3;")
-    ans = cur.fetchall()
-
-    conn.close()  # don't leave links to the db open!
+    ans = execute_query(query)
     return ans
-
 
 def onePercentErrorDay():
     """Returns a list of days, sorted by the percentage error rates on http
@@ -70,11 +80,7 @@ def onePercentErrorDay():
         an errors on that day.
             ***NOTE This only catches 404 errors at this time**
     """
-    conn = connect()
-    cur = conn.cursor()
+    query = "select day, percent_errors from log_status_rank;"
 
-    cur.execute("select day, percent_errors from log_status_rank;")
-    ans = cur.fetchone()
-
-    conn.close()  # don't leave links to the db open!
+    ans = execute_query(query)
     return ans
