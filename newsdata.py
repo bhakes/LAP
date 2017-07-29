@@ -5,9 +5,15 @@
 import psycopg2
 import sys
 
+
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    return psycopg2.connect(database="news")
+    try:
+        return psycopg2.connect(database="news")
+    except:
+        print "You could not connect to the news database. Please check\
+         check your connection and try again."
+
 
 def artRank():
     """Returns a list of articles, sorted by page views, descending.
@@ -25,9 +31,9 @@ def artRank():
     cur.execute("select title, visits from art_rank LIMIT 3;")
     ans = cur.fetchall()
 
-    ## don't leave links to the db open!
-    conn.close()
+    conn.close()  # don't leave links to the db open!
     return ans
+
 
 def authRank():
     """Returns a list of authors, sorted by pageviews.
@@ -46,9 +52,9 @@ def authRank():
     cur.execute("select * from auth_rank LIMIT 3;")
     ans = cur.fetchall()
 
-    ## don't leave links to the db open!
-    conn.close()
+    conn.close()  # don't leave links to the db open!
     return ans
+
 
 def onePercentErrorDay():
     """Returns a list of days, sorted by the percentage error rates on http
@@ -70,6 +76,5 @@ def onePercentErrorDay():
     cur.execute("select day, percent_errors from log_status_rank;")
     ans = cur.fetchone()
 
-    ## don't leave links to the db open!
-    conn.close()
+    conn.close()  # don't leave links to the db open!
     return ans
