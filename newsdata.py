@@ -11,8 +11,8 @@ def connect():
     try:
         return psycopg2.connect(database="news")
     except:
-        print "You could not connect to the news database. Please check\
-         check your connection and try again."
+        print ("You could not connect to the news database. Please check\
+         check your connection and try again.")
 
 def execute_query(query):
     """execute_query takes an SQL query as a parameter.Executes the query\
